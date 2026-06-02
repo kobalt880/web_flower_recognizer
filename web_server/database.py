@@ -1,5 +1,6 @@
 from sqlalchemy.orm import DeclarativeBase, sessionmaker, Session, Query
 from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.exc import IntegrityError
 
 
 class Base(DeclarativeBase): pass
@@ -67,14 +68,16 @@ class Database:
 
     @static_session
     def register(username: str, password: str, name: str,
-                 surname: str, phone_number: str, session: Session):
-        
-        account = Account(
-            username=username, password=password, name=name,
-            surname=surname, phone_number=phone_number
-        )
+                 surname: str, phone_number: str, session: Session) -> bool:
+        try:
+            account = Account(
+                username=username, password=password, name=name,
+                surname=surname, phone_number=phone_number
+            )
+            session.add(account)
 
-        session.add(account)
+        except: return False
+        else: return True
 
     @static_session
     def login(username: str, password: str, session: Session) -> int | None:
@@ -157,5 +160,4 @@ class Database:
     def clear_history(user_id: int, session: Session):
         query = create_query(session, History, History.user_id == user_id)
         history = query.all()
-
         for note in history: session.delete(note)
