@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>Регистрация</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" type="text/css" href="/sf/css/form.css"/>
+    </head>
+
+    <body>
+        <h1>Регистрация</h1>
+
+        <div class="form">
+            <input placeholder="Псевдоним" id="username-input"/><br>
+            <input placeholder="Пароль" id="password-input"/><br>
+            <input placeholder="Имя" id="name-input"/><br>
+            <input placeholder="Фамилия" id="surname-input"/><br>
+            <input placeholder="Номер телефона" id="pn-input"/><br>
+
+            <button onclick="window.registerWrapper()">Зарегистрироваться</button>
+        </div>
+
+        <script type="module" src="/sf/reg/reg.js"></script>
+    </body>
+</html>

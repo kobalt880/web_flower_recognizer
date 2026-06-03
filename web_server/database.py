@@ -68,16 +68,12 @@ class Database:
 
     @static_session
     def register(username: str, password: str, name: str,
-                 surname: str, phone_number: str, session: Session) -> bool:
-        try:
-            account = Account(
-                username=username, password=password, name=name,
-                surname=surname, phone_number=phone_number
-            )
-            session.add(account)
-
-        except: return False
-        else: return True
+                 surname: str, phone_number: str, session: Session):
+        account = Account(
+            username=username, password=password, name=name,
+            surname=surname, phone_number=phone_number
+        )
+        session.add(account)
 
     @static_session
     def login(username: str, password: str, session: Session) -> int | None:
