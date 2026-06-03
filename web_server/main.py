@@ -15,7 +15,7 @@ def main(id: str | None = Cookie(default=None)):
         return '/sf/main'
 
 
-# registration
+# account management
 @app.post('/reg_data')
 def register(data = Body()):
     scfl = True
@@ -49,6 +49,13 @@ def logout(response: Response):
     scfl = True
     try: response.delete_cookie(key='id')
     except: scfl = False
+    return {'scfl': scfl}
+
+
+@app.post('/edit')
+def edit_account(id: str | None = Cookie(), data = Body()):
+    try: scfl = Database.edit_account(id, **data)
+    except AttributeError: scfl = False; print('1231487923572349857349857349857\n 19342945729834')
     return {'scfl': scfl}
 
 

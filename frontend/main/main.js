@@ -20,7 +20,7 @@ async function initPage() {
     const account = await getAccountData();
     if(account !== null) {
         const label = document.getElementById('greet');
-        label.textContent = `Здравствуйте, ${account.name}`;
+        label.textContent = `Здравствуйте, ${account.name}!`;
     }
     else {
         alert('Не удалось получить ваше имя');

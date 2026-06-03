@@ -3,7 +3,6 @@ import { getAccountData } from '/sf/main_script.js';
 
 async function initPage() {
     const account = await getAccountData();
-    alert(account.name);
 
     if(account !== null) {
         const username = document.getElementById('username');

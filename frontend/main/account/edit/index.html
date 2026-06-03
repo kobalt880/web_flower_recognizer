@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>Изменение данных аккаунта</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" type="text/css" href="/sf/css/form.css"/>
+    </head>
+
+    <body>
+        <h1>Изменение данных аккаунта</h1>
+        
+        <div class="form">
+            <span class="info">
+                Оставьте поле пустым, если не 
+                хотите изменять его значение.
+            </span>
+
+            <input id="username" placeholder="Новый псевдоним"/>
+            <input id="password" placeholder="Новый пароль"/>
+            <input id="name" placeholder="Новое имя"/>
+            <input id="surname" placeholder="Новая фамилия"/>
+            <input id="pn" placeholder="Новый номер телефона"/>
+
+            <button onclick="window.editWrapperGlobal()">Сохранить</button>
+            <script type="module" src="/sf/main/account/edit/edit.js"></script>
+        </div>
+    </body>
+</html>

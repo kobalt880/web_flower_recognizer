@@ -28,7 +28,8 @@ class History(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, nullable=False)
 
-    predicted_class = Column(String, nullable=False)
+    predicted = Column(String, nullable=False)  # "<class_1>, <class_2>, ..., <class_n>"
+    confidence = Column(String, nullable=False)  # "<conf_1>, <conf_2>, ..., <conf_n>"
     image_path = Column(String)
 
 
@@ -133,11 +134,12 @@ class Database:
         else: return False
 
     @static_session
-    def add_history_note(user_id: int, predicted_class: str,
+    def add_history_note(user_id: int, predicted_class: str, confidence: str,
                            session: Session, image_path: str | None = None):
         note = History(
             user_id=user_id,       
             predicted_class=predicted_class,
+            confidence=confidence,
             image_path=image_path
         )
         session.add(note)

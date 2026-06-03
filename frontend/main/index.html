@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 
 <html lang="ru">
     <head>
@@ -15,6 +15,32 @@
 
         <h1>Главная страница</h1>
         <span id="greet"></span>
+
+        <script type="module" src="/sf/main/main.js"></script>
+    </body>
+</html>
+-->
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>Распознаватель цветов</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" type="text/css" href="/sf/css/mainstyle.css"/>
+    </head>
+
+    <body>
+        <div class="upper-menu flex">
+            <button onclick="window.logoutGlobal()">Выйти из аккаунта</button>
+            <button onclick="window.location.assign('/sf/main/account')">Ваш аккаунт</button>
+        </div>
+
+        <div class="container flex">
+            <span class="large" id="greet">Здравствуйте, username!</span>
+            <span>Добро пожаловать на наш сайт</span>
+            <button>Загрузить изображение</button>
+            <button>История</button>
+        </div>
 
         <script type="module" src="/sf/main/main.js"></script>
     </body>
