@@ -1,0 +1,18 @@
+@import url('/sf/css/form.css');
+
+div.acc-card {
+    flex-direction: column;
+    width: 50%;
+}
+
+.red-link {
+    color: red;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+@media (max-device-width: 480px) {
+    div.acc-card {
+        width: 90%;
+    }
+}

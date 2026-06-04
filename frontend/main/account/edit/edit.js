@@ -7,16 +7,15 @@ function getFieldValue(fieldId) {
 }
 
 async function editAccount(dataObject) {
-    let scfl;
+    let scfl; let message;
+    
     await sendPostQuery(editPostAddr, dataObject, function(response) {
         scfl = response.scfl;
+        message = response.message;
     });
 
-    if(scfl) {
-        alert('Данные успешно изменены');
-        redirect('/sf/main/account');
-    }
-    else { alert('Непредвиденная ошибка: не удалось изменить данные аккаунта'); }
+    if(scfl) { redirect('/sf/main/account'); }
+    else { alert(message); }
 }
 
 async function editWrapper() {

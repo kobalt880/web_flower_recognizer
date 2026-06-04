@@ -1,20 +1,9 @@
-html {
-    font-family: Arial, Helvetica, sans-serif;
-    background-image: url('https://img.freepik.com/free-photo/close-up-beautiful-flower_23-2151589761.jpg?semt=ais_hybrid&w=740');
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+@import url('/sf/css/global.css');
 
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-}
+html { color: black; }
 
 div {
-    background-color: white;
+    background-color: #fffa;
     border-radius: 15px;
     padding: 10px;
 
@@ -23,9 +12,6 @@ div {
 }
 
 h1 {
-    border-radius: 50%;
-    width: 80%;
-    text-align: center;
     background-color: #fffa;
 }
 

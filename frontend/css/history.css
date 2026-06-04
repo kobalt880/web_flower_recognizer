@@ -1,0 +1,40 @@
+@import url('/sf/css/global.css');
+
+h1, div { background-color: #0008; }
+
+#is-empty {
+    text-align: center;
+}
+
+div.main {
+    height: 65vh;
+    align-items: center;
+}
+
+div.history-list {
+    border-radius: 10px;
+    padding: 5px;
+    overflow-y: auto;
+    width: 100%;
+    height: 90%;
+}
+
+div.history-list > div {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 5px;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+div.buttons {
+    background-color: #0000;
+    flex-direction: column;
+}
+
+@media (max-device-width: 480px) {
+    div.history-list > div {
+        font-size: small;
+    }
+}

@@ -53,15 +53,40 @@ def logout(response: Response):
 
 
 @app.post('/edit')
-def edit_account(id: str | None = Cookie(), data = Body()):
-    try: scfl = Database.edit_account(id, **data)
-    except AttributeError: scfl = False; print('1231487923572349857349857349857\n 19342945729834')
+def edit_account(id: str | None = Cookie(default=None), data = Body()):
+    message = ''
+
+    if id is None:
+        message = 'Кажется, вы еще не вошли в аккаунт. Нужно это исправить, слышите?'
+        scfl = False
+
+    else:
+        try: scfl = Database.edit_account(id, **data)
+        except IntegrityError:
+            message =\
+                'Введенное вами имя пользователя уже '\
+                'было занято. Пожалуйста, выберите другое.'
+            scfl = False
+
+    return {'scfl': scfl, 'message': message}
+
+
+@app.post('/delete_acc')
+def delete_account(response: Response, id: str | None = Cookie(default=None)):
+    scfl = False
+
+    if id is not None:
+        scfl = Database.delete_account(id)
+
+        if scfl:
+            Database.clear_history(id)
+            response.delete_cookie(key='id')
+
     return {'scfl': scfl}
 
 
-# getting data
 @app.post('/get_acc_data')
-def get_acc_data(id: str | None = Cookie(default=None)):
+def send_acc_data(id: str | None = Cookie(default=None)):
     if id is None or (acc := Database.get_account(id)) is None:
         return {'scfl': False}
     
@@ -75,3 +100,26 @@ def get_acc_data(id: str | None = Cookie(default=None)):
             'surname': surname,
             'pn': pn
         }
+
+
+# history management
+@app.post('/get_hist')
+def send_history(id: str | None = Cookie(default=None)):
+    if id is not None:
+        history = Database.get_history(id)
+        return {'scfl': True, 'history': history}
+
+    return {'scfl': False}
+
+
+@app.post('/cl_hist')
+def clear_history(id: str | None = Cookie(default=None)):
+    scfl = False
+
+    if id is not None:
+        try:
+            Database.clear_history(id)
+            scfl = True
+        except: pass
+    
+    return {'scfl': scfl}

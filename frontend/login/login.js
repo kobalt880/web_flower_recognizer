@@ -25,10 +25,7 @@ async function loginWrapper() {
             const id = response.id;
 
             if(id === -1) { alert('Неверно введены данные'); }
-            else {
-                alert('Вы успешно вошли в аккаунт');
-                redirect('/');
-            }
+            else { redirect('/'); }
         }
     );
 }

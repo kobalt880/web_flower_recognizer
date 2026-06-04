@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>История распознаваний</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" type="text/css" href="/sf/css/history.css"/>
+    </head>
+
+    <body>
+        <h1>История распознаваний</h1>
+
+        <div class="container flex main">
+            <div class="history-list" id="history-list">
+                <span id="is-empty">Пока здесь ничего нет</span>
+            </div>
+
+            <div class="buttons flex">
+                <button onclick="window.location.assign('/sf/main')">
+                    Вернуться на главную
+                </button>
+                <button onclick="window.clearHistGlobal()">Очистить</button>
+            </div>
+        </div>
+
+        <script type="module" src="/sf/main/history/history.js"></script>
+    </body>
+</html>

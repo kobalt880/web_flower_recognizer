@@ -134,23 +134,23 @@ class Database:
         else: return False
 
     @static_session
-    def add_history_note(user_id: int, predicted_class: str, confidence: str,
-                           session: Session, image_path: str | None = None):
+    def add_history_note(user_id: int, predicted: str, confidence: str,
+                        session: Session, image_path: str | None = None):
         note = History(
             user_id=user_id,       
-            predicted_class=predicted_class,
+            predicted=predicted,
             confidence=confidence,
             image_path=image_path
         )
         session.add(note)
 
     @static_session
-    def get_history(user_id: int, session: Session) -> list[tuple[str, str | None]]:
+    def get_history(user_id: int, session: Session) -> list[tuple[str, str, str | None]]:
         query = create_query(session, History, History.user_id == user_id)
         history = query.all()
 
         return list(map(
-            lambda hist: (hist.predicted_class, hist.image_path),
+            lambda hist: (hist.predicted, hist.confidence, hist.image_path),
             history
         ))
 
