@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>Загрузка изображения</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" type="text/css" href="/sf/css/image.css"/>
+    </head>
+
+    <body>
+        <h1>Загрузка изображения</h1>
+
+        <div class="flex container">
+            <input type="file" id="file-input" onchange="window.onLoadGlobal()"/>
+            <button onclick="window.recognizeGlobal()">Распознать</button>
+        </div>
+
+        <div id="result-card" class="flex container empty-result-card">
+            <img id="preview"/>
+        </div>
+
+        <script type="module" src="/sf/main/image/image.js"></script>
+    </body>
+</html>

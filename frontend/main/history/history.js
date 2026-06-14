@@ -1,6 +1,24 @@
 import { sendPostQuery } from '/sf/main_script.js';
 const getHistoryAddr = '/get_hist';
 const clearHistoryAddr = '/cl_hist';
+const cacheImgAddr = '/cache_img';
+
+
+function createImageOpener(imageDataURL) {
+    return async function()
+    {
+        const bodyObject = { img: imageDataURL };
+
+        await sendPostQuery(cacheImgAddr, bodyObject, response => {
+            if(response.scfl) {
+                window.location.assign('/sf/main/history/image');
+            } else {
+                alert('Не удалось открыть изображение');
+            }
+        });
+    }
+}
+
 
 /* getting */
 function createNote(textContent, imgPath) {
@@ -9,8 +27,8 @@ function createNote(textContent, imgPath) {
     const imgLink = document.createElement('a');
 
     predInfo.textContent = textContent;
-    imgLink.href = imgPath;
-    imgLink.textContent = 'Open img.'
+    imgLink.textContent = 'Открыть изоб.';
+    imgLink.onclick = createImageOpener(imgPath);
 
     div.appendChild(predInfo);
     div.appendChild(imgLink);
@@ -50,10 +68,10 @@ async function showHistory() {
         history.forEach(note => {
     
             pred = getFirst(note[0]);
-            conf = (parseFloat(getFirst(note[1])) * 100).toFixed(2);
+            conf = getFirst(note[1]);
             img = note[2];
     
-            noteDiv = createNote(`${pred} (${conf}%)`, '#');
+            noteDiv = createNote(`${pred} (${conf}%)`, img);
             list.appendChild(noteDiv);
     
         });

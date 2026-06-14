@@ -13,6 +13,20 @@ async function sendPostQuery(addr, bodyObject, responseHandler) {
     }
 }
 
+async function sendImage(addr, imageFile, responseHandler) {
+    const response = await fetch(addr, {
+        method: 'POST',
+        headers: { 'Accept': "application/json" },
+        body: imageFile
+    });
+
+    if(response.ok) {
+        responseHandler(await response.json());
+    } else {
+        alert(`Response ${addr} is not okay`);
+    }
+}
+
 async function getAccountData() {
     // returns account object or null value
     let accountObject;
@@ -50,6 +64,6 @@ function isSpace(string) {
 }
 
 export {
-    isSpace, redirect,
+    isSpace, redirect, sendImage,
     sendPostQuery, getAccountData
 }

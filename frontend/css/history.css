@@ -33,6 +33,12 @@ div.buttons {
     flex-direction: column;
 }
 
+a {
+    text-decoration: underline;
+    color: #790;
+    cursor: pointer;
+}
+
 @media (max-device-width: 480px) {
     div.history-list > div {
         font-size: small;

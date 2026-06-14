@@ -30,7 +30,7 @@ class History(Base):
 
     predicted = Column(String, nullable=False)  # "<class_1>, <class_2>, ..., <class_n>"
     confidence = Column(String, nullable=False)  # "<conf_1>, <conf_2>, ..., <conf_n>"
-    image_path = Column(String)
+    image_url = Column(String)
 
 
 Base.metadata.create_all(engine)
@@ -135,12 +135,12 @@ class Database:
 
     @static_session
     def add_history_note(user_id: int, predicted: str, confidence: str,
-                        session: Session, image_path: str | None = None):
+                        session: Session, image_url: str | None = None):
         note = History(
             user_id=user_id,       
             predicted=predicted,
             confidence=confidence,
-            image_path=image_path
+            image_url=image_url
         )
         session.add(note)
 
@@ -150,7 +150,7 @@ class Database:
         history = query.all()
 
         return list(map(
-            lambda hist: (hist.predicted, hist.confidence, hist.image_path),
+            lambda hist: (hist.predicted, hist.confidence, hist.image_url),
             history
         ))
 

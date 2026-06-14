@@ -14,8 +14,12 @@ async function register(username, password, name, surname, phoneNumber, response
     await sendPostQuery(postQueryAddress, queryBody, responseHandler);
 }
 
-function checkRegData(username, password, name, surname, pn) {
+function checkRegData(username, password, repPass, name, surname, pn) {
     /* Эта функция ещё не доработана */
+    if(repPass.trim() !== password.trim()) {
+        alert('Введенные пароли не совпадают');
+        return false;
+    }
 
     if(username.trim() === '' || password.trim() === '' || name.trim() === '' ||
         surname.trim() === '' || pn.trim() === '') {
@@ -28,12 +32,14 @@ function checkRegData(username, password, name, surname, pn) {
 async function registerWrapper() {
     const usernameInput = document.getElementById('username-input');
     const passwordInput = document.getElementById('password-input');
+    const repPassInput = document.getElementById('repeat-pass');
     const nameInput = document.getElementById('name-input');
     const surnameInput = document.getElementById('surname-input');
     const pnInput = document.getElementById('pn-input');
     
     if(!checkRegData(
         usernameInput.value, passwordInput.value,
+        repPassInput.value,
         nameInput.value, surnameInput.value,
         pnInput.value
     )) { return; }

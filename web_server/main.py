@@ -1,8 +1,18 @@
 from database import Database, IntegrityError
+from ai import *
+
 from fastapi import FastAPI, Body, Cookie, Response
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.responses import RedirectResponse, HTMLResponse
 
+
+with open('../frontend/file_view.html', 'r') as f:
+    URL_FIELD = 'DATA_URL'
+    file_view_html = f.read()
+
+
+cache = {}
+model = FlowersModel(3)
 app = FastAPI()
 app.mount('/sf', StaticFiles(directory='../frontend', html=True))
 
@@ -13,6 +23,12 @@ def main(id: str | None = Cookie(default=None)):
         return '/sf'
     else:
         return '/sf/main'
+
+
+@app.get('/file_view/{img}', response_class=HTMLResponse)
+def file_view(img):
+    img = img.replace('|', '/')
+    return file_view_html.replace(URL_FIELD, img)
 
 
 # account management
@@ -123,3 +139,45 @@ def clear_history(id: str | None = Cookie(default=None)):
         except: pass
     
     return {'scfl': scfl}
+
+
+@app.post('/hist_add')
+def add_history_note(id: str | None = Cookie(default=None), data = Body()):
+    scfl = False
+
+    if id is not None:
+        Database.add_history_note(id,
+            data['pred'], data['conf'],
+            image_url=data['img_url']
+        )
+        scfl = True
+    
+    return {'scfl': scfl}
+
+
+@app.post('/cache_img')
+def cache_img(id: str | None = Cookie(default=None), data = Body()):
+    if id is not None:
+        cache[id] = data['img']
+        return {'scfl': True}
+    
+    else: return {'scfl': False}
+
+
+@app.post('/get_cached_img')
+def send_cached_img(id: str | None = Cookie(default=None)):
+    if id in cache.keys():
+        print(cache[id], "RORI")
+        return {'scfl': True, 'img': cache[id]}
+    
+    else: return {'scfl': False}
+
+
+# prediction
+@app.post('/predict')
+def predict(image = Body()):
+    try:
+        pred, conf = model(image)
+        return {'scfl': True, 'pred': pred, 'conf': conf}
+
+    except: return {'scfl': False}

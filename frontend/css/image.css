@@ -1,0 +1,7 @@
+@import url("/sf/css/global.css");
+
+h1, div { background-color: #000a; }
+
+div.empty-result-card { background-color: #0000; }
+
+img { border-radius: 10px; }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+    <head>
+        <title>Просмотр файла</title>
+        <meta charset="utf-8" name="viewport" content="width=device-width"/>
+        <style>
+            html {
+                height: 100vh;
+                background-color: white;
+            }
+
+            body {
+                background-color: black;
+                
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin: 0px;
+                height: 100%;
+                width: 100%;
+            }
+
+            img {
+                object-fit: contain;
+                max-height: 90%;
+                max-width: 90%;
+                border: 2px solid white;
+            }
+        </style>
+    </head>
+
+    <body>
+        <img id="img"/>
+        <script type="module" src="/sf/main/history/image/image.js"></script>
+    </body>
+</html>
