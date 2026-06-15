@@ -15,7 +15,6 @@ async function register(username, password, name, surname, phoneNumber, response
 }
 
 function checkRegData(username, password, repPass, name, surname, pn) {
-    /* Эта функция ещё не доработана */
     if(repPass.trim() !== password.trim()) {
         alert('Введенные пароли не совпадают');
         return false;

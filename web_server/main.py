@@ -3,7 +3,7 @@ from ai import *
 
 from fastapi import FastAPI, Body, Cookie, Response
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import RedirectResponse, HTMLResponse
+from fastapi.responses import RedirectResponse
 
 cache = {}
 model = FlowersModel(3)
