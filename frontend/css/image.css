@@ -2,6 +2,59 @@
 
 h1, div { background-color: #000a; }
 
-div.empty-result-card { background-color: #0000; }
+div.transparent { background-color: #0000; }
 
-img { border-radius: 10px; }
+div.image-container {
+    width: auto;
+    height: 24vh;
+    justify-content: center;
+
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #0000;
+}
+
+div#result-card {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    margin-top: 0px;
+    max-height: 40vh;
+    height: auto;
+
+    align-items: center;
+    justify-content: space-around;
+
+    background-color: #0000;
+}
+
+div#info {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+div#pred, div#conf {
+    flex-direction: column;
+    background-color: #0000;
+}
+
+img {
+    border-radius: 10px;
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+input[type="file"] {
+    background-color: #070;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+
+input[type="file"]::file-selector-button {
+    background-color: #030;
+    color: white;
+    border-radius: 5px;
+    font-size: medium;
+}

@@ -13,10 +13,20 @@
         <div class="flex container">
             <input type="file" id="file-input" onchange="window.onLoadGlobal()"/>
             <button onclick="window.recognizeGlobal()">Распознать</button>
+            <button onclick="window.location.assign('/')">Вернуться на главную</button>
         </div>
 
-        <div id="result-card" class="flex container empty-result-card">
-            <img id="preview"/>
+        <div id="result-card" class="flex container">
+            <div class="flex image-container" id="image-container">
+                <img id="preview"/>
+            </div>
+
+            <span id="loading"></span>
+
+            <div id="info" class="flex container transparent">
+                <div id="pred" class="flex"></div>
+                <div id="conf" class="flex"></div>
+            </div>
         </div>
 
         <script type="module" src="/sf/main/image/image.js"></script>

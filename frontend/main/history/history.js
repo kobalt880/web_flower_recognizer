@@ -76,10 +76,10 @@ async function showHistory() {
     
         });
         
-        if(history.length > 0) {
-            const emptySpan = document.getElementById('is-empty');
-            emptySpan.textContent = '';
-        }
+        const emptySpan = document.getElementById('is-empty');
+
+        if(history.length > 0) { emptySpan.textContent = ''; }
+        else { emptySpan.textContent = 'Пока здесь ничего нет'; }
     }
     else { alert('Не удалось загрузить вашу историю'); }
 }

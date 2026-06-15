@@ -20,12 +20,27 @@ async function editAccount(dataObject) {
 
 async function editWrapper() {
     let dataObject = {};
+    let pass = true;
 
     const username = getFieldValue('username');
     if(username !== '') { dataObject.username = username; }
 
     const password = getFieldValue('password');
-    if(password !== '') { dataObject.password = password; }
+    if(password !== '') {
+        const rep = getFieldValue('repeat-pass');
+
+        if(rep === '') {
+            alert('Повторите пароль в поле ниже');
+            pass = false;
+        }
+        
+        else if(rep !== password) {
+            alert('Пароли не совпадают');
+            pass = false;
+        }
+
+        else { dataObject.password = password; }
+    }
 
     const name = getFieldValue('name');
     if(name !== '') { dataObject.name = name; }
@@ -36,7 +51,7 @@ async function editWrapper() {
     const pn = getFieldValue('pn');
     if(pn !== '') { dataObject.phone_number = pn; }
 
-    await editAccount(dataObject);
+    if(pass) { await editAccount(dataObject); }
 }
 
 window.editWrapperGlobal = editWrapper;

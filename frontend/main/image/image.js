@@ -8,7 +8,7 @@ function showImage() {
     const fileInput = document.getElementById('file-input');
     const file = fileInput.files[0];
 
-    if(file !== undefined) {
+    if(file !== undefined && file.type.slice(0, 5) === 'image') {
         const reader = new FileReader();
         reader.onload = () => {
             const img = document.getElementById('preview');
@@ -16,13 +16,64 @@ function showImage() {
         }
         reader.readAsDataURL(file);
     
-        const div = document.getElementById('result-card');
-        div.class = 'flex container';
+        const imgDiv = document.getElementById('image-container');
+        const resDiv = document.getElementById('result-card');
+        imgDiv.style.backgroundColor = resDiv.style.backgroundColor = '#000a';
     }
 }
 
+function setLoadingStatus() {
+    const predDiv = document.getElementById('pred');
+    const confDiv = document.getElementById('conf');
+
+    const predChildren = predDiv.childNodes;
+    const confChildren = confDiv.childNodes;
+
+    while(predDiv.hasChildNodes() || confDiv.hasChildNodes()) {
+        predDiv.removeChild(predChildren[0]);
+        confDiv.removeChild(confChildren[0]);
+    }
+    
+    const loadingSpan = document.getElementById('loading');
+    loadingSpan.textContent = 'Загрузка...';
+}
+
 function showPredictionResult(prediction) {
-    alert(`${prediction.pred}; ${prediction.conf}`);
+    const infoDiv = document.getElementById('info');
+    infoDiv.style.backgroundColor = '#000a';
+
+    {
+        const predDiv = document.getElementById('pred');
+        const confDiv = document.getElementById('conf');
+
+        {
+            const classes = `Тип цветка, ${prediction.pred}`.split(', ');
+            const confs = `Уверенность модели, ${prediction.conf}`.split(', ');
+            let span;
+
+            for(let i = 0; i < classes.length; i++) {
+                span = document.createElement('span');
+                if(i === 0) { span.style.fontWeight = 'bold'; }
+                span.textContent = classes[i];
+                predDiv.appendChild(span);
+
+                span = document.createElement('span');
+                let addChar = '%';
+
+                if(i === 0) {
+                    span.style.fontWeight = 'bold';
+                    addChar = '';
+                }
+
+                span.style.textAlign = 'right';
+                span.textContent = confs[i] + addChar;
+                confDiv.appendChild(span);
+            }
+        }
+    }
+    
+    const loadingSpan = document.getElementById('loading');
+    loadingSpan.textContent = '';
 }
 
 async function getPrediction(file) {
@@ -31,9 +82,10 @@ async function getPrediction(file) {
         return { good: false };
     }
     else if(file.type.slice(0, 5) !== 'image') {
-        alert(`Тип файла не поддерживается (debug: "${file.type.slice(0, 5)}")`);
+        alert(`Тип файла не поддерживается`);
         return { good: false };
     }
+    setLoadingStatus();
 
     let pred; let conf; let scfl
     await sendImage(predPostAddr, file, response => {
@@ -68,8 +120,8 @@ async function recognize() {
 
     if(prediction.good) {
         const reader = new FileReader();
-        reader.onload = () => {
-            savePrediction(prediction, reader.result);
+        reader.onload = async function() {
+            await savePrediction(prediction, reader.result);
             showPredictionResult(prediction);
         }
         reader.readAsDataURL(file);

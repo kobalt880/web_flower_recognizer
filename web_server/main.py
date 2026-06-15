@@ -5,12 +5,6 @@ from fastapi import FastAPI, Body, Cookie, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse, HTMLResponse
 
-
-with open('../frontend/file_view.html', 'r') as f:
-    URL_FIELD = 'DATA_URL'
-    file_view_html = f.read()
-
-
 cache = {}
 model = FlowersModel(3)
 app = FastAPI()
@@ -23,12 +17,6 @@ def main(id: str | None = Cookie(default=None)):
         return '/sf'
     else:
         return '/sf/main'
-
-
-@app.get('/file_view/{img}', response_class=HTMLResponse)
-def file_view(img):
-    img = img.replace('|', '/')
-    return file_view_html.replace(URL_FIELD, img)
 
 
 # account management
@@ -167,9 +155,7 @@ def cache_img(id: str | None = Cookie(default=None), data = Body()):
 @app.post('/get_cached_img')
 def send_cached_img(id: str | None = Cookie(default=None)):
     if id in cache.keys():
-        print(cache[id], "RORI")
         return {'scfl': True, 'img': cache[id]}
-    
     else: return {'scfl': False}
 
 
